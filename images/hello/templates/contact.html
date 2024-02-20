@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+{%load static%}
+
+<head>
+    <title>Свяжитесь с нами</title>
+    <style>
+body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .header form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header form input[type="text"] {
+            width: 50%;
+            padding: 10px;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .header form input[type="submit"] {
+            margin-left: 10px;
+        }
+
+        .header img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .nav {
+            margin: 20px 0;
+            text-align: center;
+            background-color: #f0b6d5;
+            padding: 10px;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            line-height: 2;
+        }
+
+        .faq-container {
+            display: flex;
+            margin: 20px 5%;
+            width: 90%;
+        }
+
+        .faq-section {
+            flex: 1;
+            margin-right: 16px;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            border-bottom: 2px solid #ff1493;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background-color: #f0b6d5;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+            margin-left: 15px;
+        }
+
+        .faq-question .arrow {
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .contact-info {
+            flex: 1;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin-left: 16px;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 10px;
+        }
+
+        .email-container {
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .email-button {
+            width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            border: none;
+            background-color: #ff1493;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .email-button a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .email-button:hover {
+            background-color: #ff0066;
+        }
+
+        .faq-question.active + .faq-answer {
+            max-height: 1000px; /* Set a value large enough to accommodate your content */
+            transition: max-height 0.3s;
+        }
+          .faq-question {
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .faq-question::before {
+        content: "▼";
+        margin-right: 5px;
+        transition: transform 0.3s;
+    }
+
+    .faq-question.active::before {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s;
+        margin-left: 5px;
+    }
+
+        #cart-icon {
+    font-size: 20px;
+    color: #007bff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+    </style>
+</head>
+
+<body>
+<!--    <div class="header1">-->
+<!--        <p><font size="2">⭐ Предложение ограничено! СКИДКА 10% на 1-й заказ. Код: Welcome10</p></font>-->
+<!--        <div class="social-icons">-->
+<!--            <a href="https://ru-ru.facebook.com/hellokitty/about"><img src="facebook.png" alt=""></a>-->
+<!--            <a href="https://www.instagram.com/hellokitty/?ysclid=lpzl4y26xf972714177"><img-->
+<!--                    src="instagramm_ikon.png" alt=""></a>-->
+<!--            <a href="https://twitter.com/hellokitty"><img src="twitter.png" alt=""></a>-->
+<!--            <font size="3">-->
+<!--                <p style="display: inline; color: white;">-->
+<!--                    <a href="customer_service.html" style="color: white; text-decoration: none;"><font size="2">Обслуживание-->
+<!--                            клиентов</a> |-->
+<!--                    <a href="blog.html" style="color: white; text-decoration: none;">Блог</a>-->
+<!--                </p>-->
+<!--        </div>-->
+<!--        </form>-->
+<!--    </div>-->
+    <div class="header">
+        <form action="/search" method="get">
+            <img src="{%static "images/логотип.png"%}">
+            <input type="text" name="q" placeholder="Поиск...">
+            <a href="/cart" id="cart-link"><img src="{%static "images/cart.png"%}" id="cart-icon" alt="Корзина" style="width: 40px; height: 40px;"></a>
+        </form>
+    </div>
+    <div class="nav">
+        <a href="/index">Главная</a>
+        <a href="/catalog">Каталог</a>
+        <a href="/contact">Свяжитесь с нами</a>
+    </div>
+    <div class="faq-container">
+        <div class="faq-section">
+            <h1>Свяжитесь с нами</h1>
+            <h2>Часто задаваемые вопросы</h2>
+            <div class="faq-question">
+            Сколько времени занимает получение заказа?
+            </div>
+            <div class="faq-answer">ВРЕМЯ ОБРАБОТКИ<br>
+                <p>Мы являемся компанией, занимающейся печатью по требованию, поэтому, пожалуйста, подождите от 3 до 5
+                    рабочих
+                    дней на обработку в зависимости от типа продукта и нашего текущего объема, прежде чем ваш заказ будет
+                    отправлен. Нашим овцам из микрофибры и полиэстера требуется время, чтобы сделать из нас потрясающие
+                    индивидуальные продукты, которые подходят вам по вкусу.
+                    Заказы, размещенные в праздничные и выходные дни, будут обработаны в последующие рабочие дни.
+                    Обратите внимание, что доставка заказов с более чем одним товаром может быть отправлена в разные даты в
+                    зависимости от наличия на складе.</p>
+            </div>
+            <div class="faq-question">
+               Какова ваша политика возврата и обмена?
+            </div>
+            <div class="faq-answer">
+                <p>В связи с методом производства, который мы используем для всех наших продуктов, мы не можем принять
+                    возврат, если не будет доказано, что товар поврежден / бракован.
+                    Наш полис действует 7 дней. Если с момента получения покупки прошло 7 дней, к сожалению, мы не
+                    можем
+                    предложить вам возврат или обмен.
+                    Чтобы иметь право на возврат, ваш товар должен быть неиспользованным и в том же состоянии, в
+                    котором
+                    вы его получили. Он также должен быть в оригинальной упаковке.</p>
+            </div>
+            <div class="faq-question">
+                <span>Как я могу отслеживать статус моего заказа?</span>
+            </div>
+            <div class="faq-answer">
+                <p>Как только ваш заказ будет отправлен, вы получите подтверждение по электронной почте с номером
+                    отслеживания.</p>
+            </div>
+            <div class="faq-question">
+                <span>Что делать, если я ввел неверный адрес доставки?</span>
+            </div>
+            <div class="faq-answer">
+                <p>Пожалуйста, свяжитесь с нами как можно скорее, и мы поможем вам убедиться, что вы получите свой
+                    заказ по
+                    правильному адресу</p>
+            </div>
+            <div class="faq-question">
+                <span>Доставляете ли вы в мою страну?</span>
+            </div>
+            <div class="faq-answer">
+                <p>ДА. Независимо от того, где вы живете, мы отправляем нашу продукцию по всему миру.</p>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <h2>Мы здесь, чтобы помочь. Свяжитесь с нами в любое время</h2>
+            <p>Чем мы можем вам помочь?</p>
+            <p class="email-button"><a href="mailto:contact@hellokitty-plush.com">БЫСТРАЯ ПОДДЕРЖКА: contact@hellokitty-plush.com</a></p>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(function (faqQuestion) {
+                faqQuestion.addEventListener('click', function () {
+                    this.classList.toggle('active');
+                    const faqAnswer = this.nextElementSibling;
+                    if (faqAnswer.style.maxHeight) {
+                        faqAnswer.style.maxHeight = null;
+                    } else {
+                        faqAnswer.style.maxHeight = faqAnswer.scrollHeight + 'px';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

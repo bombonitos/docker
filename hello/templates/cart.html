@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .header form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header form input[type="text"] {
+            width: 50%;
+            padding: 10px;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .header form input[type="submit"] {
+            margin-left: 10px;
+        }
+
+        .header img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .content {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .nav {
+        margin: 20px 0;
+        text-align: center;
+        background-color: #f0b6d5; /* Добавьте эту строку, чтобы окрасить фон в розовый */
+        padding: 10px; /* Добавьте эту строку, чтобы добавить отступ вокруг ссылок */
+    }
+    .nav a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: white;
+        line-height: 2; /* Добавьте эту строку, чтобы увеличить высоту строки */
+    }
+
+
+
+        .cart-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .cart-items {
+            flex: 2;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .total-price {
+            flex: 1;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .cart-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            cursor: pointer;
+            background-color: #adadad;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+        }
+
+        .remove-btn {
+            cursor: pointer;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <form action="/search" method="get">
+        <img src="{%static "images/логотип.png"%}"> <!-- Добавьте эту строку для логотипа -->
+
+    </form>
+    </div>
+    <div class="nav">
+        <a href="/index">Главная</a>
+        <a href="/catalog">Каталог</a>
+        <a href="/contact">Свяжитесь с нами</a>
+
+    <div class="cart-container">
+        <div class="cart-items">
+            <!-- Здесь будут отображаться товары в корзине -->
+        </div>
+        <div class="total-price">
+            <!-- Здесь будет отображаться общая стоимость товаров в корзине -->
+        </div>
+
+    </div>
+        <a id="checkout-link" href="/admin/hello/orders/add/">Оформить заказ</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Получение текущей корзины из localStorage
+            var cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // Отображение товаров в корзине
+            var cartItemsContainer = $(".cart-items");
+            var totalPriceContainer = $(".total-price");
+
+            updateCartView();
+
+            function updateCart() {
+            updateCartView();
+            updateTotalPrice();
+        }
+
+        function updateCartView() {
+            var cartItemsContainer = $(".cart-items");
+            cartItemsContainer.empty();
+
+
+            cart.forEach(function (item) {
+                    var cartItem = $(`
+                        <div class="cart-item" data-item-id="${item.id}">
+                            <div>${item.name} - ${item.price} тг.</div>
+                            <div>
+                                <button class="quantity-btn" data-action="decrease">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn" data-action="increase">+</button>
+                                <button class="remove-btn">Удалить</button>
+                            </div>
+                        </div>
+                    `);
+
+                    // Обработчики событий для изменения количества и удаления товара
+                    cartItem.find(".quantity-btn").click(function () {
+                        updateQuantity(item.id, $(this).data("action"));
+                    });
+
+                    cartItem.find(".remove-btn").click(function () {
+                        removeItem(item.id);
+                    });
+
+                    cartItemsContainer.append(cartItem);
+                });
+
+                // Обновление общей стоимости
+                updateTotalPrice();
+            }
+
+            function updateQuantity(itemId, action) {
+                var itemIndex = cart.findIndex(item => item.id === itemId);
+
+                if (itemIndex !== -1) {
+                    if (action === "increase") {
+                        cart[itemIndex].quantity++;
+                    } else if (action === "decrease" && cart[itemIndex].quantity > 1) {
+                        cart[itemIndex].quantity--;
+                    }
+
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateCartView();
+                }
+            }
+
+            function removeItem(itemId) {
+                cart = cart.filter(item => item.id !== itemId);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                updateCartView();
+            }
+
+            function updateTotalPrice() {
+                var totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                totalPriceContainer.text(`Общая стоимость: ${totalPrice} тг.`);
+            }
+        });
+
+
+           $("#checkout-link").click(function (event) {
+<!--            event.preventDefault(); // Предотвращаем переход по ссылке-->
+
+            // Очищаем корзину
+            var cart = [];
+            saveCart(cart);
+
+            // Обновляем корзину и ее представление
+            updateCartView();
+
+            // Дополнительные действия, связанные с оформлением заказа...
+        });
+
+        // Инициализация корзины при загрузке страницы
+        var cart = getCart();
+        updateCartView();
+        updateTotalPrice(); // Добавил вызов этой функции, предполагая, что она также объявлена
+
+
+
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem("cart")) || [];
+        }
+
+        // Функция для сохранения корзины в localStorage
+        function saveCart(cart) {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+
+
+    </script>
+</body>
+</html>

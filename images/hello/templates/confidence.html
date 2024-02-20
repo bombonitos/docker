@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конфиденциальность</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .nav {
+            margin: 20px 0;
+            text-align: center;
+            background-color: #f0b6d5;
+            padding: 10px;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            line-height: 2;
+        }
+
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: left;
+        }
+
+        h1, h2, p {
+            margin-bottom: 10px;
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .header form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header form input[type="text"] {
+            width: 50%;
+            padding: 10px;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .header form input[type="submit"] {
+            margin-left: 10px;
+        }
+
+        .header img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .social-icons {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
+       .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .col {
+            width: 48%;
+        }
+        .col-inner {
+            padding: 20px;
+        }
+        .col img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .copyright-footer {
+            font-size: 0.9em;
+            color: #000; /* Изменено на черный */
+        }
+
+        /* Новые стили для правильного размещения элементов */
+        .header1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .header1 img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .header1 a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .header1 span {
+            margin-right: 10px;
+        }
+
+        .header form {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Переместили контент вправо */
+        }
+        .footer-wrapper {
+            padding: 20px;
+        }
+
+        .col-inner {
+            margin-bottom: 20px;
+        }
+
+        .foot-title {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .ux-menu-link__link {
+            color: #555;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .ux-menu-link__link:hover {
+            color: #e44d26;
+        }
+
+        .img-inner {
+            margin-bottom: 10px;
+        }
+
+        .copyright-footer {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .absolute-footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #top-link {
+            color: #fff;
+            background-color: #e44d26;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <form action="/search" method="get">
+            <img src="{% static "images/логотип.png" %}" alt="логотип">
+
+        </form>
+    </div>
+
+    <div class="nav">
+        <a href="/index">Главная</a>
+        <a href="/catalog">Каталог</a>
+        <a href="/contact">Свяжитесь с нами</a>
+    </div>
+
+    <div class="content-container">
+        <h1></h1>
+
+        <h2>СМИ</h2>
+        <p>Если вы загружаете изображения на веб-сайт, вам следует избегать загрузки изображений со встроенными данными о местоположении (EXIF GPS). Посетители веб-сайта могут загружать и извлекать любые данные о местоположении из изображений на веб-сайте.</p>
+
+        <h2>Встроенный контент с других веб-сайтов</h2>
+        <p>Статьи на этом сайте могут включать встроенный контент (например, видео, изображения, статьи и т. д.). Встроенный контент с других веб-сайтов ведет себя точно так же, как если бы посетитель посетил другой веб-сайт.</p>
+
+        <p>Эти веб-сайты могут собирать данные о вас, использовать файлы cookie, встраивать дополнительное стороннее отслеживание и отслеживать ваше взаимодействие с этим встроенным контентом, включая отслеживание вашего взаимодействия со встроенным контентом, если у вас есть учетная запись и вы вошли на этот веб-сайт.</p>
+
+        <h2>Как долго мы храним ваши данные</h2>
+        <p>Если вы оставляете комментарий, комментарий и его метаданные сохраняются на неопределенный срок. Это сделано для того, чтобы мы могли автоматически распознавать и одобрять любые последующие комментарии, а не держать их в очереди на модерацию.</p>
+
+        <p>Для пользователей, которые регистрируются на нашем веб-сайте (если таковые имеются), мы также сохраняем личную информацию, которую они предоставляют, в своем профиле пользователя. Все пользователи могут просматривать, редактировать или удалять свою личную информацию в любое время (за исключением того, что они не могут изменить свое имя пользователя). Администраторы веб-сайта также могут просматривать и редактировать эту информацию.</p>
+
+        <h2>Какие права вы имеете на свои данные</h2>
+        <p>Если у вас есть учетная запись на этом сайте или вы оставили комментарии, вы можете запросить экспортированный файл личных данных, которые мы храним о вас, включая любые данные, которые вы нам предоставили. Вы также можете потребовать, чтобы мы удалили все личные данные, которые мы храним о вас. Сюда не входят данные, которые мы обязаны хранить в административных, юридических целях или целях безопасности.</p>
+    </div>
+
+    <footer id="footer" class="footer-wrapper">
+    <h2 style="text-align: center;">БЛОГИ</h2>
+      <div style="border-top: 0.5px solid #000;"></div>
+    <section class="section" id="section_1124232097">
+        <div class="section-content relative">
+            <div class="row row-small" id="row-1615870865">
+                <div id="col-1391869685" class="col medium-3 small-6 large-3">
+                    <div class="col-inner">
+                        <h3 class="foot-title colapse">СЛУЖБА И ПОДДЕРЖКА</h3>
+                        <div class="ux-menu stack stack-col justify-start">
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="/confidence">
+                                    <span class="ux-menu-link__text">Конфиденциальность</span>
+                                </a>
+                            </div>
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="/politics">
+                                    <span class="ux-menu-link__text"> возврат средств</span>
+                                </a>
+                            </div>
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="https://hellokitty-plush.com/payment-method/" rel="nofollow">
+                                </a>
+                            </div>
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="https://hellokitty-plush.com/shipping-policy/" rel="nofollow">
+                                </a>
+                            </div>
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="https://hellokitty-plush.com/term-of-service/" rel="nofollow">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="col-1448057062" class="col medium-3 small-6 large-3">
+                    <div class="col-inner">
+                        <h3 class="foot-title colapse" style="color: black;">О КОМПАНИИ</h3>
+                        <p><a href="/about"
+                                style="text-decoration: none; color: black;">О нас </a></font></p>
+                        <p><a href="/contact"
+                                style="text-decoration: none; color: black;">Свяжитесь с нами </a></font></p>
+                    </div>
+                </div>
+                <div id="col-1150226572" class="col medium-3 small-6 large-3">
+                    <div class="col-inner">
+                        <h3 class="foot-title">СВЯЗАТЬСЯ С НАМИ</h3>
+                        <p>Головной офис: 6175 Kite Rd, Palmetto, Georgia, 30268, US</p>
+                        <p>Склад: Bei Jing Lu 515, Wuhua District, Yunnan, CN</p>
+                        <p>Часы работы: 9:00 - 17:00 (пн - пт)</p>
+                        <p>Email: <strong>contact@hellokitty-plush.com</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>
+
+                <style>
+                    #section_1124232097 {
+                        padding-top: 0px;
+                        padding-bottom: 0px;
+                    }
+                </style>
+            </section>
+
+            <div class="absolute-footer light medium-text-center small-text-center">
+                <div class="container clearfix">
+
+                    <div class="footer-primary pull-left">
+                        <div class="copyright-footer">
+                            © 2023 Hello Kitty Plush. Все права защищены.
+                        </div>
+                    </div>
+</body>
+</html>

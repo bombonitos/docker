@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %} <!-- Подключение тега для загрузки статических файлов -->
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9e9eb;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header1 {
+            background-color: black;
+            text-align: left;
+            padding: 1px;
+            color: white;
+        }
+
+      .header form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header form img {
+    width: 20%; /* Изменено значение здесь */
+}
+
+.header form input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+}
+
+.header form input[type="submit"] {
+    width: 20%;
+    margin-left: 10px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+        .nav {
+            margin: 20px 0;
+            text-align: center;
+            background-color: #f0b6d5;
+            padding: 10px;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            line-height: 2;
+        }
+
+        .profile-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        h2 {
+            color: #e44d26;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+
+        .profile-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .proff button {
+            background-color: #e44d26;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .proff button:hover {
+            background-color: #d1381c;
+        }
+
+        .avatar {
+            position: absolute;
+            width: 2%;
+            top: 35px;
+            left: 1350px;
+            cursor: pointer;
+        }
+
+        .avatar:hover {
+            opacity: 0.8;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header1">
+        <span class="hello-msg">Добро пожаловать, {{ request.user }}</span>
+        <a class="login-form login-button" href="{% url 'login' %}">Войти</a>
+        <a href="{% url 'login' %}">
+            <img class="avatar" src="{% static 'images/image avatar.png' %}" alt="логотип">
+        </a>
+    </div>
+
+    <div class="header">
+        <form action="/search" method="get">
+            <img src="{% static 'images/логотип.png' %}" alt="логотип">
+            <input type="text" name="q" placeholder="Поиск...">
+            <input type="submit" value="Найти">
+        </form>
+    </div>
+
+    <div class="nav">
+        <a href="index.html">Главная</a>
+        <a href="/catalog">Каталог</a>
+        <a href="contact.html">Свяжитесь с нами</a>
+    </div>
+
+    <div class="profile-container">
+        <h2>User Profile</h2>
+
+        <form method="post" action="{% url 'profile' %}">
+            {% csrf_token %}
+            <label for="first_name">Имя:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ request.user.first_name }}">
+
+            <label for="last_name">Фамилия:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ request.user.last_name }}">
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" value="{{ request.user.email }}">
+
+            <label for="phone_number">Номер телефона:</label>
+            <input type="text" id="phone_number" name="phone_number" value="{{ request.user.profile.phone_number }}">
+
+            <div class="profile-actions">
+                <button type="submit">Сохранить</button>
+                <a href="{% url 'details2' %}"><button>Мои реквизиты</button></a>
+            </div>
+        </form>
+
+        <div class="proff">
+            <a href="{% url 'logout' %}">
+                <button>Выход из аккаунта</button>
+            </a>
+            <form method="post" action="{% url 'delete_user' %}">
+                {% csrf_token %}
+                <button type="submit">Удалить</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

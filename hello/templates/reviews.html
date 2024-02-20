@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container {
+  display: flex;
+  justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.reviews, .form {
+  width: 45%;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 60%;
+  padding: 40px;
+}
+
+.form {
+    width: 60%; /* Уменьшаем ширину блока с формой */
+    height:
+  }
+
+  .reviews {
+    width: 65%; /* Увеличиваем ширину блока с отзывами */
+  }
+
+button {
+  background-color: pink;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.input-container div {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container label {
+  order: 1;
+}
+
+.input-container input {
+  order: 2;
+}
+
+.rating {
+  display: flex;
+  direction: rtl;
+  justify-content: left;
+  font-size: 30px;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  font-size: 30px;
+  color: gray;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.rating input:checked ~ label,
+.rating label:hover ~ input:not(:checked) ~ label {
+  color: gold;
+}
+
+/* Добавляем стили для отзывов */
+.review {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.review .name {
+  font-weight: bold;
+}
+
+.review .date {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.review .rating {
+  color: gold;
+  margin-bottom: 10px;
+}
+
+.review .text {
+  margin-bottom: 10px;
+}
+
+/* Добавляем стиль для кнопки удаления */
+.review .delete {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<center>
+<div class="container">
+  <div class="reviews">
+    <h2>Отзывы пользователей</h2>
+    <!-- Здесь будут отзывы пользователей -->
+  </div>
+  <div class="form">
+    <form id="review-form" action="/submit_review" method="post">
+      <label for="rating">Оценка:</label><br>
+      <div class="rating">
+        <input id="star5" name="rating" type="radio" value="5" class="radio-btn hide" />
+        <label for="star5">☆</label>
+        <input id="star4" name="rating" type="radio" value="4" class="radio-btn hide" />
+        <label for="star4">☆</label>
+        <input id="star3" name="rating" type="radio" value="3" class="radio-btn hide" />
+        <label for="star3">☆</label>
+        <input id="star2" name="rating" type="radio" value="2" class="radio-btn hide" />
+        <label for="star2">☆</label>
+        <input id="star1" name="rating" type="radio" value="1" class="radio-btn hide" />
+        <label for="star1">☆</label>
+      </div>
+      <div class="input-container">
+        <div>
+          <label for="name">Ваше имя:</label>
+          <input type="text" id="name" name="name">
+        </div>
+        <div>
+          <label for="email">Ваш email:</label>
+          <input type="email" id="email" name="email">
+        </div>
+      </div>
+      <label for="review">Ваш отзыв:</label><br>
+      <textarea id="review" name="review"></textarea><br>
+      <button type="submit">Отправить отзыв</button>
+    </form>
+  </div>
+</div>
+</center>
+<script>
+// Загрузка сохраненных отзывов из localStorage при загрузке страницы
+window.onload = function() {
+  var reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+  reviews.forEach(function(review, index) {
+    addReviewToPage(review, index);
+  });
+};
+
+document.getElementById('review-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  var name = document.getElementById('name').value;
+  var email = document.getElementById('email').value;
+  var reviewText = document.getElementById('review').value;
+  var rating = document.querySelector('input[name="rating"]:checked').value;
+
+  var review = {name: name, email: email, rating: rating, review: reviewText, date: new Date().toISOString().slice(0, 10)};
+
+  // Сохранение отзыва в localStorage
+  var reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+  reviews.push(review);
+  localStorage.setItem('reviews', JSON.stringify(reviews));
+
+  addReviewToPage(review, reviews.length - 1);
+});
+
+function addReviewToPage(review, index) {
+  var reviewElement = document.createElement('div');
+  reviewElement.className = 'review';
+  reviewElement.innerHTML =
+  '<div class="rating">' + '☆'.repeat(review.rating) + '</div>' +
+    '<div class="name">' + review.name + '</div>' +
+    '<div class="date">' + review.date + '</div>' +
+    '<div class="text">' + review.review + '</div>' +
+    '<button class="delete" data-index="' + index + '">Удалить</button>';
+  document.querySelector('.reviews').appendChild(reviewElement);
+}
+
+// Добавляем обработчик событий для кнопок удаления
+document.querySelector('.reviews').addEventListener('click', function(event) {
+  if (event.target.className === 'delete') {
+    var index = event.target.getAttribute('data-index');
+    var reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+    reviews.splice(index, 1);
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+    document.querySelector('.reviews').innerHTML = '';
+    reviews.forEach(addReviewToPage);
+  }
+});
+</script>
+
+</body>
+</html>

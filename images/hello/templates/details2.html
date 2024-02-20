@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href='/add_card'> <button> Добавить реквизиты</button></a>
+{% for c in card %}
+<p>{{c.rekvizit_name}}</p>
+{% endfor %}
+</body>
+</html>

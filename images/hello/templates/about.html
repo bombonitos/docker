@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>Каталог персонажей</title>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Стили для шапки страницы */
+        .header1 {
+            background-color: black;
+            text-align: left;
+            padding: 1px;
+            color: white;
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .header form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header form input[type="text"] {
+            width: 50%;
+            padding: 10px;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .header form input[type="submit"] {
+            margin-left: 10px;
+        }
+
+        .header img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        /* Стили для навигационного меню */
+        .nav {
+            margin: 20px 0;
+            text-align: center;
+            background-color: #f0b6d5;
+            padding: 10px;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            line-height: 2;
+        }
+
+        /* Новые стили для правильного размещения элементов */
+        .header1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .header1 img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .header1 a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .header1 span {
+            margin-right: 10px;
+        }
+
+        .header form {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Переместили контент вправо */
+        }
+        .footer-wrapper {
+            padding: 20px;
+        }
+
+        .col-inner {
+            margin-bottom: 20px;
+        }
+
+        .foot-title {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .ux-menu-link__link {
+            color: #555;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .ux-menu-link__link:hover {
+            color: #e44d26;
+        }
+
+        .img-inner {
+            margin-bottom: 10px;
+        }
+
+        .copyright-footer {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .absolute-footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #top-link {
+            color: #fff;
+            background-color: #e44d26;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .additional-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .additional-content .text, .additional-content .image {
+            width: 45%;
+        }
+        .additional-content .image {
+            margin-left: 10%;
+        }
+        .additional-content .image img {
+            width: 80%;
+            height: auto;
+        }
+        .text {
+            padding: 120px;
+        }
+        .faq-question {
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question img {
+            margin-left: 10px;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .col {
+            width: 48%;
+        }
+        .col-inner {
+            padding: 20px;
+        }
+        .col img {
+            max-width: 100%;
+            height: auto;
+        }
+        .logout-form {
+            display: inline;
+        }
+
+        .logout-button {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+
+        #cart-icon {
+    font-size: 20px;
+    color: #007bff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#account-icon {
+            font-size: 20px;
+            color: #007bff;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .login-form {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid #f9e9eb;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #f9e9eb;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .login-form:hover {
+            background-color: #f9e9eb;
+            color: #e44d26;
+        }
+
+        .hello-msg {
+            display: inline;
+        }
+
+        .logout-form {
+            display: inline;
+        }
+
+        .logout-button {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Шапка страницы -->
+
+    <div class="header">
+        <form action="/search" method="get">
+            <img src="{% static "images/логотип.png" %}" alt="логотип">
+
+        </form>
+    </div>
+
+    <!-- Навигационное меню -->
+    <div class="nav">
+        <a href="/index">Главная</a>
+        <a href="/catalog">Каталог</a>
+        <a href="/contact">Свяжитесь с нами</a>
+    </div>
+<main id="main" class="">
+
+
+<div id="content" role="main" class="content-area">
+
+
+				<section class="section" id="section_1719700918">
+		<div class="bg section-bg fill bg-fill bg-loaded bg-loaded">
+
+
+
+
+
+		</div>
+
+		<div class="section-content relative">
+
+<div class="row" id="row-120707339">
+
+	<div id="col-370200899" class="col small-12 large-12">
+		<div class="col-inner">
+<p><img fetchpriority="high" decoding="async" class="alignnone size-full wp-image-6554" src="http://hellokitty-plush.com/wp-content/uploads/2022/07/hello-kitty-plush-logo-1024x281-2.png" width="1024" height="281" alt="hello-kitty-plush-logo" title="About Us 1 - Hello Kitty Plush" srcset="https://hellokitty-plush.com/wp-content/uploads/2022/07/hello-kitty-plush-logo-1024x281-2.png 1024w, https://hellokitty-plush.com/wp-content/uploads/2022/07/hello-kitty-plush-logo-1024x281-2-300x82.png 300w, https://hellokitty-plush.com/wp-content/uploads/2022/07/hello-kitty-plush-logo-1024x281-2-768x211.png 768w, https://hellokitty-plush.com/wp-content/uploads/2022/07/hello-kitty-plush-logo-1024x281-2-400x110.png 400w, https://hellokitty-plush.com/wp-content/uploads/2022/07/hello-kitty-plush-logo-1024x281-2-700x192.png 700w" sizes="(max-width: 1024px) 100vw, 1024px"></p>
+<p>Мы — <a href="index.html">магазин плюшевых игрушек Hello Kitty</a><b></b>. Мы гордимся тем, что являемся одним из <strong>лучших магазинов</strong>, продающих милую мягкую игрушку Hello Kitty.</p>
+<p>Наша миссия — создавать вдохновляющие продукты для каждого любителя во всем мире. Наши эксклюзивные продукты <strong>Плюшевая кукла Hello Kitty, Плюшевая сумка Hello Kitty, Плюшевый брелок Hello Kitty…</strong> заставят вас влюбиться. Это предметы, хотя бы одна пара которых должна быть в вашей коллекции. Мы рады, что многие клиенты остаются довольными и оставляют много хороших отзывов о нашей продукции.</p>
+<p>Наша команда – мы сплоченная творческая, увлеченная команда. Любовь к Hello Kitty объединила нас, и мы надеемся, что она объединит всех <strong>любителей Hello Kitty</strong> в семью <strong>Hello Kitty Plush</strong>. Вы не только наши ценные клиенты, но и наши друзья. Если у вас есть что-то на уме, идея, просьба или вопрос, пожалуйста, свяжитесь с нами. Свяжитесь с нами по адресу <strong>contact@hellokitty-plush.com</strong>, если вам понадобится помощь.</p>
+<p>Оставайтесь рядом с нами, подписываясь на нас, чтобы получить больше привилегий. Мы часто делимся нашими новостями, крутыми новинками, а также акциями и событиями. Я надеюсь, что вы получите столько радости и удовлетворения от <b>Магазин Hello Kitty Plush.</b></p>
+<p>Здесь вам всегда рады.</p>
+<p>Спасибо!</p>		</div>
+			</div>
+
+
+</div>
+		</div>
+
+
+<style>
+#section_1719700918 {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+</style>
+	</section>
+
+
+
+</div>
+</main>
+    <!-- Футер -->
+    <footer id="footer" class="footer-wrapper">
+    <h2 style="text-align: center;">БЛОГИ</h2>
+      <div style="border-top: 0.5px solid #000;"></div>
+    <section class="section" id="section_1124232097">
+        <div class="section-content relative">
+            <div class="row row-small" id="row-1615870865">
+                <div id="col-1391869685" class="col medium-3 small-6 large-3">
+                    <div class="col-inner">
+                        <h3 class="foot-title colapse">СЛУЖБА И ПОДДЕРЖКА</h3>
+                        <div class="ux-menu stack stack-col justify-start">
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="/confidence">
+                                    <span class="ux-menu-link__text">Конфиденциальность</span>
+                                </a>
+                            </div>
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="/politics">
+                                    <span class="ux-menu-link__text"> возврат средств</span>
+                                </a>
+                            </div>
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="https://hellokitty-plush.com/payment-method/" rel="nofollow">
+                                </a>
+                            </div>
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="https://hellokitty-plush.com/shipping-policy/" rel="nofollow">
+                                </a>
+                            </div>
+                            <div class="ux-menu-link flex menu-item">
+                                <a class="ux-menu-link__link flex" href="https://hellokitty-plush.com/term-of-service/" rel="nofollow">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="col-1448057062" class="col medium-3 small-6 large-3">
+                    <div class="col-inner">
+                        <h3 class="foot-title colapse" style="color: black;">О КОМПАНИИ</h3>
+                        <p><a href="/about"
+                                style="text-decoration: none; color: black;">О нас </a></font></p>
+                        <p><a href="/contact"
+                                style="text-decoration: none; color: black;">Свяжитесь с нами </a></font></p>
+                    </div>
+                </div>
+                <div id="col-1150226572" class="col medium-3 small-6 large-3">
+                    <div class="col-inner">
+                        <h3 class="foot-title">СВЯЗАТЬСЯ С НАМИ</h3>
+                        <p>Головной офис: 6175 Kite Rd, Palmetto, Georgia, 30268, US</p>
+                        <p>Склад: Bei Jing Lu 515, Wuhua District, Yunnan, CN</p>
+                        <p>Часы работы: 9:00 - 17:00 (пн - пт)</p>
+                        <p>Email: <strong>contact@hellokitty-plush.com</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>
+
+
+            <style>
+                #section_1124232097 {
+                    padding-top: 0px;
+                    padding-bottom: 0px;
+                }
+            </style>
+        </section>
+
+        <div class="absolute-footer light medium-text-center small-text-center">
+            <div class="container clearfix">
+
+                <div class="footer-primary pull-left">
+                    <div class="copyright-footer">
+                        © 2023 Hello Kitty Plush. Все права защищены.
+                    </div>
+                </div>
+
+
+
+</body>
+</html>

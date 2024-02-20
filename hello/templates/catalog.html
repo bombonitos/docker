@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% csrf_token %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .header form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header form input[type="text"] {
+            width: 50%;
+            padding: 10px;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .header form input[type="submit"] {
+            margin-left: 10px;
+        }
+
+        .header img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .content {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .social-icons {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.social-icons img {
+    width: 23px; /* Уменьшите размер изображения */
+    height: auto;
+}
+         .header1 {
+            background-color:black;
+            text-align: left;
+            padding: 1px;
+            color: white;
+
+
+        }
+        .header {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .header form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .header form input[type="text"] {
+        width: 50%; /* Увеличьте ширину поля ввода */
+        padding: 10px; /* Добавьте отступ вокруг текста */
+        border-radius: 50px; /* Сделайте поле ввода округлым */
+        border: none; /* Удалите рамку вокруг поля ввода */
+    }
+    .header form input[type="submit"] {
+        margin-left: 10px; /* Добавьте отступ слева от кнопки */
+    }
+    .header img {
+        height: 50px; /* Установите высоту логотипа */
+        margin-right: 10px; /* Добавьте отступ справа от логотипа */
+    }
+    .social-icons {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.social-icons img {
+    width: 23px; /* Уменьшите размер изображения */
+    height: auto;
+}
+
+     .nav {
+        margin: 20px 0;
+        text-align: center;
+        background-color: #f0b6d5; /* Добавьте эту строку, чтобы окрасить фон в розовый */
+        padding: 10px; /* Добавьте эту строку, чтобы добавить отступ вокруг ссылок */
+    }
+    .nav a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: white;
+        line-height: 2; /* Добавьте эту строку, чтобы увеличить высоту строки */
+    }
+
+        .size-filter {
+            margin-top: 10px;
+        }
+    #price-range {
+            margin-top: 10px;
+        }
+
+    #cart-icon {
+    font-size: 20px;
+    color: #007bff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
+.wrapper {
+            display: flex;
+            min-height: 5vh;
+            /* Добавлено: минимальная высота контейнера для занятия всего экрана */
+        }
+
+        .filters {
+            position: sticky;
+            top: 0;
+            width: 200px;
+            background-color: #f2f2f2;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .catalog-container {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .item {
+            flex: 0 0 calc(33.3333% - 20px);
+            /* Изменено на 33.3333%, чтобы отображать по 3 товара в ряду */
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            max-width: calc(33.3333% - 20px); /* Добавлено: фиксированная ширина элемента */
+        }
+
+
+        /* Добавлен новый класс, чтобы ограничить ширину элемента и выровнять его по центру */
+        .item-content {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+    div {
+    text-align: center;
+}
+
+button {
+    font-size: 1rem;
+    padding: 8px 16px;
+    margin: 4px;
+}
+
+
+</style>
+</head>
+<body>
+    <div class="header">
+        <form action="{% url 'search' %}" method="get">
+
+        <img src="{%static "images/логотип.png"%}"> <!-- Добавьте эту строку для логотипа -->
+        <input type="search" type="text" name="q" placeholder="Поиск...">
+            <button type="submit">Найти</button>
+            <a href="/cart" id="cart-link"><img src="{%static "images/cart.png"%}" id="cart-icon" alt="Корзина" style="width: 40px; height: 40px;"></a>
+    </form>
+    </div>
+    <div class="nav">
+        <a href="/index">Главная</a>
+        <a href="/catalog">Каталог</a>
+        <a href="/contact">Свяжитесь с нами</a>
+
+    </div>
+<div class="wrapper">
+  <div class="filters">
+        <div class="filter">
+            <label>Категория:</label>
+            <select id="categoryFilter">
+                <option value="all">Все категории</option>
+                <option value="Halloween">Хэллоуин</option>
+                <option value="Mochaccino">Моккачино</option>
+                <option value="Christmas">Рождество</option>
+                <option value="Mysticmansion">Мистический Особняк</option>
+                <option value="Picnic">Пикник на природе</option>
+                <option value="Classic">Классические</option>
+                <option value="Fairytale">Сказочный мир</option>
+                <option value="Valentine">День Святого Валентина</option>
+                <!-- Добавьте дополнительные категории, если необходимо -->
+            </select>
+        </div>
+
+
+      <div class="filter">
+            <label for="minPrice">Минимальная цена:</label>
+            <input type="number" id="minPrice" placeholder="Минимальная цена">
+        </div>
+
+
+    <div class="filter">
+            <label for="maxPrice">Максимальная цена:</label>
+            <input type="number" id="maxPrice" placeholder="Максимальная цена">
+            <div id="price-range"></div>
+        </div>
+
+        <div class="filter size-filter">
+            <label>Фильтр по размеру (см):</label><br>
+            <input type="checkbox" id="size20"> 20 <br>
+            <input type="checkbox" id="size23"> 23 <br>
+            <input type="checkbox" id="size25"> 25 <br>
+            <input type="checkbox" id="size28"> 28 <br>
+            <input type="checkbox" id="size30"> 30 <br>
+        </div>
+    </div>
+
+<div class="wrapper">
+    <div class="catalog-container">
+        <div class="catalog">
+            {% for kitty in kitty %}
+            <div class="item" data-category="{{ kitty.category }}" data-price="{{ kitty.price }}" data-name="{{ kitty.name }}" data-size="{{ kitty.size }}" data-id="{{ kitty.id }}">
+                <div class="item-content">
+                    <a href="/product/{{ kitty.id }}"><img src="{{ kitty.image.url }}" width="100%"><br></a>
+                    {{ kitty.name }}<br>
+                    {{ kitty.price }} тг.
+                    {{ kitty.description }}<br><br>
+                    <button class="quantity-btn" data-action="decrease">-</button>
+    <span class="quantity">1</span>
+    <button class="quantity-btn" data-action="increase">+</button>
+    <button class="add-to-cart-btn" data-item-id="{{ kitty.id }}" onclick="addToCart()">Добавить в корзину</button>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+  </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $(document).ready(function () {
+        // Инициализация ползунков для выбора цены
+        $("#price-range").slider({
+            range: true,
+            min: 0,
+            max: 20000, // Установите максимальное значение цены
+            values: [0, 20000],
+            slide: function (event, ui) {
+                $("#minPrice").val(ui.values[0]);
+                $("#maxPrice").val(ui.values[1]);
+                filterCatalog();
+            }
+        });
+
+        // Обработчики изменений в полях ввода минимальной и максимальной цены
+        $("#minPrice, #maxPrice").change(function () {
+            $("#price-range").slider("values", [$("#minPrice").val(), $("#maxPrice").val()]);
+            filterCatalog();
+        });
+
+        // Обработчик изменений в фильтрах
+        $("#categoryFilter, input[type='checkbox']").change(function () {
+            filterCatalog();
+        });
+
+        // Функция для фильтрации каталога
+        function filterCatalog() {
+            var minPrice = parseInt($("#minPrice").val());
+            var maxPrice = parseInt($("#maxPrice").val());
+            var selectedCategory = $("#categoryFilter").val();
+            var selectedSizes = [];
+
+            // Получение выбранных размеров
+            $("input[type='checkbox']:checked").each(function () {
+                selectedSizes.push($(this).attr("id").replace("size", ""));
+            });
+
+            // Перебор элементов каталога и применение фильтров
+            $(".item").each(function () {
+                var price = parseInt($(this).data("price"));
+                var category = $(this).data("category");
+                var size = parseInt($(this).data("size"));
+
+                var showItem = true;
+
+                // Фильтрация по цене
+                if (price < minPrice || price > maxPrice) {
+                    showItem = false;
+                }
+
+                // Фильтрация по категории
+                if (selectedCategory !== "all" && category !== selectedCategory) {
+                    showItem = false;
+                }
+
+                // Фильтрация по размеру
+                if (selectedSizes.length > 0 && selectedSizes.indexOf(size.toString()) === -1) {
+                    showItem = false;
+                }
+
+                // Отображение или скрытие элемента
+                if (showItem) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+
+        // Обработчик нажатия кнопок "+" и "-"
+        $(".quantity-btn").click(function () {
+            var action = $(this).data("action");
+            var quantityElement = $(this).siblings(".quantity");
+            var quantity = parseInt(quantityElement.text());
+
+            if (action === "increase") {
+                quantity++;
+            } else if (action === "decrease" && quantity > 1) {
+                quantity--;
+            }
+
+            quantityElement.text(quantity);
+
+            // Добавленный код: обновление корзины в localStorage
+            var itemId = $(this).closest(".item").data("id");
+            updateCart(itemId, quantity);
+        });
+
+        // Обработчик нажатия кнопки "Add to Cart"
+        $(".add-to-cart-btn").click(function () {
+            var itemId = $(this).data("item-id");
+            var itemName = $(this).closest(".item").data("name");
+            var itemPrice = $(this).closest(".item").data("price");
+            var itemQuantity = parseInt($(this).siblings(".quantity").text());
+
+            var cartItem = {
+                id: itemId,
+                name: itemName,
+                price: itemPrice,
+                quantity: itemQuantity
+            };
+
+            // Получение текущей корзины из localStorage
+            var cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // Проверка наличия товара в корзине
+            var existingItemIndex = cart.findIndex(item => item.id === itemId);
+
+            if (existingItemIndex !== -1) {
+                // Если товар уже в корзине, обновите его количество
+                cart[existingItemIndex].quantity += itemQuantity;
+            } else {
+                // Если товар не в корзине, добавьте новый элемент
+                cart.push(cartItem);
+            }
+
+            // Сохранение обновленной корзины в localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            // Опционально: обновление интерфейса корзины или отправка данных на сервер
+            console.log("Item added to cart:", cartItem);
+        });
+
+        // Добавленная функция: обновление корзины в localStorage
+        function updateCart(itemId, quantity) {
+            var cart = JSON.parse(localStorage.getItem("cart")) || [];
+            var existingItemIndex = cart.findIndex(item => item.id === itemId);
+
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity = quantity;
+                localStorage.setItem("cart", JSON.stringify(cart));
+            }
+        }
+         $(button).siblings(".quantity").text(1);
+
+        // Функция для фильтрации каталога
+        function filterCatalog() {
+            var minPrice = parseInt($("#minPrice").val());
+            var maxPrice = parseInt($("#maxPrice").val());
+            var selectedCategory = $("#categoryFilter").val();
+            var selectedSizes = [];
+
+            // Получение выбранных размеров
+            $("input[type='checkbox']:checked").each(function () {
+                selectedSizes.push($(this).attr("id").replace("size", ""));
+            });
+
+            // Перебор элементов каталога и применение фильтров
+            $(".item").each(function () {
+                var price = parseInt($(this).data("price"));
+                var category = $(this).data("category");
+                var size = parseInt($(this).data("size"));
+
+                var showItem = true;
+
+                // Фильтрация по цене
+                if (price < minPrice || price > maxPrice) {
+                    showItem = false;
+                }
+
+                // Фильтрация по категории
+                if (selectedCategory !== "all" && category !== selectedCategory) {
+                    showItem = false;
+                }
+
+                // Фильтрация по размеру
+                if (selectedSizes.length > 0 && selectedSizes.indexOf(size.toString()) === -1) {
+                    showItem = false;
+                }
+
+                // Отображение или скрытие элемента
+                if (showItem) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
+
+</script>
+
+</body>
+</html>
