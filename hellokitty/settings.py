@@ -78,14 +78,15 @@ WSGI_APPLICATION = 'hellokitty.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'test1',
-        'USER': 'kitty',
-        'PASSWORD': '2012',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'имя_базы_данных',
+        'USER': 'ваше_имя_пользователя',
+        'PASSWORD': 'ваш_пароль',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
