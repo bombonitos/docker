@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-eqg&_*au8ur-axz5a%b21@k*iy5%qn=y0^04*n6k#il4f63d=5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'hellokitty.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'имя_базы_данных',
-        'USER': 'ваше_имя_пользователя',
-        'PASSWORD': 'ваш_пароль',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'hello',
+        'USER': 'ayana',
+        'PASSWORD': 'ayana2202',
+        'HOST': '51.20.136.232',
         'PORT': '5432',
     }
 }
